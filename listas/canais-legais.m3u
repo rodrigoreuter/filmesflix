@@ -1,25 +1,26 @@
 #EXTM3U
 # Canais gratuitos e oficiais: cada link é servido pelo próprio canal
 # (domínio da emissora ou do órgão público). Conferido em 18/10/2026.
-#EXTINF:-1 tvg-id="TVCamara.br" tvg-logo="https://i.imgur.com/Sdou1Ab.png" group-title="Brasil: Públicos",TV Câmara
+# Os logos ficam em listas/logos/ porque algumas TVs não carregam imagens do Imgur/Wikimedia.
+#EXTINF:-1 tvg-id="TVCamara.br" tvg-logo="listas/logos/tv-camara.png" group-title="Brasil: Públicos",TV Câmara
 https://stream3.camara.gov.br/tv1/manifest.m3u8
-#EXTINF:-1 tvg-id="CulturaFast.br" tvg-logo="https://i.ibb.co/nm0jXMM/cultura-3x.png" group-title="Brasil: Públicos",Cultura Fast (TV Cultura)
+#EXTINF:-1 tvg-id="CulturaFast.br" tvg-logo="listas/logos/tv-cultura.png" group-title="Brasil: Públicos",Cultura Fast (TV Cultura)
 https://fpa-gateway.tvcultura.com.br:8181/memfs/606caef0-a290-413d-9f1f-8fcdb3a73831.m3u8
-#EXTINF:-1 tvg-id="RedeMinas.br" tvg-logo="https://i.imgur.com/MtQWAHv.png" group-title="Brasil: Públicos",Rede Minas
+#EXTINF:-1 tvg-id="RedeMinas.br" tvg-logo="listas/logos/rede-minas.png" group-title="Brasil: Públicos",Rede Minas
 https://8hzcavccys.zoeweb.tv/redeminas/ngrp:redeminas_all/playlist.m3u8
-#EXTINF:-1 tvg-id="France24.fr@English" tvg-logo="https://i.imgur.com/u8N6uoj.png" group-title="Notícias internacionais",France 24 English
+#EXTINF:-1 tvg-id="France24.fr@English" tvg-logo="listas/logos/france24.png" group-title="Notícias internacionais",France 24 English
 https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_5000.m3u8
-#EXTINF:-1 tvg-id="France24.fr@French" tvg-logo="https://i.imgur.com/u8N6uoj.png" group-title="Notícias internacionais",France 24 Français
+#EXTINF:-1 tvg-id="France24.fr@French" tvg-logo="listas/logos/france24.png" group-title="Notícias internacionais",France 24 Français
 https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8
-#EXTINF:-1 tvg-id="France24.fr@Spanish" tvg-logo="https://i.imgur.com/u8N6uoj.png" group-title="Notícias internacionais",France 24 Español
+#EXTINF:-1 tvg-id="France24.fr@Spanish" tvg-logo="listas/logos/france24.png" group-title="Notícias internacionais",France 24 Español
 https://live.france24.com/hls/live/2037220-b/F24_ES_HI_HLS/master_5000.m3u8
-#EXTINF:-1 tvg-id="AlJazeera.qa@English" tvg-logo="" group-title="Notícias internacionais",Al Jazeera English
+#EXTINF:-1 tvg-id="AlJazeera.qa@English" tvg-logo="listas/logos/al-jazeera.png" group-title="Notícias internacionais",Al Jazeera English
 https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8
-#EXTINF:-1 tvg-id="NHKWorldJapan.jp" tvg-logo="" group-title="Notícias internacionais",NHK World-Japan
+#EXTINF:-1 tvg-id="NHKWorldJapan.jp" tvg-logo="listas/logos/nhk-world.png" group-title="Notícias internacionais",NHK World-Japan
 https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8
-#EXTINF:-1 tvg-id="ABCNewsLive1.us" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/ABC_News_Live_logo_2021.svg/960px-ABC_News_Live_logo_2021.svg.png" group-title="Notícias internacionais",ABC News Live
+#EXTINF:-1 tvg-id="ABCNewsLive1.us" tvg-logo="listas/logos/abc-news.png" group-title="Notícias internacionais",ABC News Live
 https://abcnews-streams.akamaized.net/hls/live/2023560/abcnewshudson1/master.m3u8
-#EXTINF:-1 tvg-id="CBSNewsNewYork.us" tvg-logo="https://i.imgur.com/bpc4v0u.png" group-title="Notícias internacionais",CBS News New York
+#EXTINF:-1 tvg-id="CBSNewsNewYork.us" tvg-logo="listas/logos/cbs-news.png" group-title="Notícias internacionais",CBS News New York
 https://cbsn-ny.cbsnstream.cbsnews.com/out/v1/ec3897d58a9b45129a77d67aa247d136/master.m3u8
-#EXTINF:-1 tvg-id="RTP1.pt" tvg-logo="https://cdn-images.rtp.pt/common/img/channels/logos/color/horizontal/rtp1_2026.png" group-title="Portugal (RTP)",RTP 1
+#EXTINF:-1 tvg-id="RTP1.pt" tvg-logo="listas/logos/rtp1.png" group-title="Portugal (RTP)",RTP 1
 https://streaming-live.rtp.pt/liverepeater/rtp1HD.smil/playlist.m3u8

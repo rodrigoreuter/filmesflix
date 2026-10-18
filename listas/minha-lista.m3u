@@ -7,7 +7,10 @@
 #  Linhas que começam com "#" e não são #EXTINF são ignoradas.
 #  Para mais listas, crie outros .m3u nesta pasta e cadastre em
 #  js/config.js > providers.m3u.lists.
+#  Logo: se não aparecer na TV, salve a imagem em listas/logos/
+#  e use tvg-logo="listas/logos/nome.png" (Imgur e Wikimedia
+#  costumam falhar na TV).
 #  Use só streams que você tem direito de assistir.
 # ============================================================
-#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/7/70/Tos-poster.png" group-title="Minha lista (exemplo)",Tears of Steel (exemplo)
+#EXTINF:-1 tvg-logo="listas/logos/tears-of-steel.jpg" group-title="Minha lista (exemplo)",Tears of Steel (exemplo)
 https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8
