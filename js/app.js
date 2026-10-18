@@ -35,13 +35,21 @@
     Nav.removeClass($('message'), 'hidden');
   }
 
+  // O fundo do destaque é uma imagem grande: só troca quando o foco "para"
+  // por um instante, senão a TV engasga ao segurar a seta.
+  var heroTimer = null, heroImg = null;
   function setHero(item) {
     if (!item) return;
-    $('hero-title').textContent = item.title || '';
-    $('hero-meta').textContent = item.meta || '';
-    $('hero-overview').textContent = item.overview || '';
-    var img = item.backdrop || item.image;
-    $('hero-bg').style.backgroundImage = img ? 'url("' + img + '")' : 'none';
+    clearTimeout(heroTimer);
+    heroTimer = setTimeout(function () {
+      $('hero-title').textContent = item.title || '';
+      $('hero-meta').textContent = item.meta || '';
+      $('hero-overview').textContent = item.overview || '';
+      var img = item.logo ? '' : (item.backdrop || item.image || '');
+      if (img === heroImg) return;
+      heroImg = img;
+      $('hero-bg').style.backgroundImage = img ? 'url("' + img + '")' : 'none';
+    }, 180);
   }
 
   /* ---------- Abas de fontes ---------- */
@@ -136,7 +144,7 @@
   /* ---------- Detalhes ---------- */
   function openDetails(item) {
     state.detailsItem = item;
-    var img = item.backdrop || item.image;
+    var img = item.logo ? '' : (item.backdrop || item.image);
     $('details-bg').style.backgroundImage = img ? 'url("' + img + '")' : 'none';
     $('details-title').textContent = item.title || '';
     $('details-meta').textContent = item.meta || '';

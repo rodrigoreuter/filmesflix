@@ -79,7 +79,34 @@ var Nav = (function () {
     return out;
   }
 
+  // Caminho rápido para cartões: esquerda/direita = irmão no DOM;
+  // cima/baixo = cartão mais próximo na fileira vizinha.
+  function moveInRows(dir) {
+    var track = current && closest(current, 'row-track');
+    if (!track || !activeLayer().contains(current)) return false;
+    if (dir === 'left' || dir === 'right') {
+      var sib = dir === 'right' ? current.nextElementSibling : current.previousElementSibling;
+      if (sib) focus(sib);
+      return true;
+    }
+    var row = closest(track, 'row');
+    var other = row && (dir === 'down' ? row.nextElementSibling : row.previousElementSibling);
+    var next = other && other.querySelector && other.querySelector('.row-track');
+    if (!next || !next.children.length) return false; // ex.: subir para as abas
+    var r = current.getBoundingClientRect(), cx = r.left + r.width / 2;
+    var best = next.children[0], bestDist = Infinity;
+    for (var i = 0; i < next.children.length; i++) {
+      var c = next.children[i].getBoundingClientRect();
+      var d = Math.abs(c.left + c.width / 2 - cx);
+      if (d < bestDist) { bestDist = d; best = next.children[i]; }
+      else if (c.left > cx) break;
+    }
+    focus(best);
+    return true;
+  }
+
   function move(dir) {
+    if (moveInRows(dir)) return;
     var list = candidates();
     if (!current || !visible(current) || list.indexOf(current) === -1) {
       focus(list[0]);
