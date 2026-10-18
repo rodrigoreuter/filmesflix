@@ -35,7 +35,7 @@ var CONFIG = {
     // e cole a "Chave da API" (v3) OU o "Token de leitura" (v4).
     tmdb: {
       enabled: true,
-      apiKey: '',
+      apiKey: '7afd89ea23f7f696430097df8f6f74f8',
       language: 'pt-BR',
       region: 'BR'
     },
