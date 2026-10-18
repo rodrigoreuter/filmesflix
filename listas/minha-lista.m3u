@@ -1,0 +1,13 @@
+#EXTM3U
+# ============================================================
+#  SUA LISTA. Edite à vontade: o app lê este arquivo sozinho.
+#  Formato de cada canal (2 linhas):
+#    #EXTINF:-1 tvg-logo="URL do logo" group-title="Nome da fileira",Nome do canal
+#    https://endereco-do-stream.m3u8   (ou .mp4)
+#  Linhas que começam com "#" e não são #EXTINF são ignoradas.
+#  Para mais listas, crie outros .m3u nesta pasta e cadastre em
+#  js/config.js > providers.m3u.lists.
+#  Use só streams que você tem direito de assistir.
+# ============================================================
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/7/70/Tos-poster.png" group-title="Minha lista (exemplo)",Tears of Steel (exemplo)
+https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8

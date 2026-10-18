@@ -1,0 +1,14 @@
+{
+  "name": "filmesflix",
+  "version": "1.0.0",
+  "private": true,
+  "description": "App de filmes para LG Smart TV (webOS) com fontes plugáveis",
+  "scripts": {
+    "start": "npx --yes http-server . -p 5500 -c-1",
+    "package": "ares-package . -o dist -e dist -e node_modules -e package.json -e README.md -e FONTES.md -e .claude -e tools",
+    "install-tv": "ares-install --device tv dist/com.filmesflix.app_1.0.0_all.ipk",
+    "launch-tv": "ares-launch --device tv com.filmesflix.app",
+    "validar-listas": "node tools/validar-listas.js",
+    "debug-tv": "ares-inspect --device tv --app com.filmesflix.app --open"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "_leia": "Edite este arquivo pelo GitHub (botão de lápis). O que estiver aqui substitui js/config.js. Ao salvar, a TV recebe na próxima vez que abrir o app (o GitHub Pages leva ~1 min para atualizar).",
+
+  "defaultProvider": "m3u",
+
+  "providers": {
+    "demo": { "enabled": true },
+    "tmdb": { "enabled": true },
+    "jellyfin": { "enabled": false },
+
+    "m3u": {
+      "enabled": true,
+      "name": "TV ao vivo",
+      "lists": [
+        { "name": "Canais abertos", "url": "listas/canais-legais.m3u" },
+        { "name": "Minha lista", "url": "listas/minha-lista.m3u" }
+      ]
+    }
+  }
+}

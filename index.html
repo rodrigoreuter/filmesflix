@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FilmesFlix</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- TELA INICIAL -->
+    <div id="home" class="screen layer">
+      <div id="hero">
+        <div id="hero-bg"></div>
+        <div id="hero-shade"></div>
+        <div id="hero-info">
+          <h1 id="hero-title"></h1>
+          <p id="hero-meta"></p>
+          <p id="hero-overview"></p>
+        </div>
+      </div>
+
+      <header id="topbar">
+        <div class="logo">FILMES<span>FLIX</span></div>
+        <nav id="tabs"></nav>
+        <input id="search-input" class="focusable" type="text" placeholder="Buscar...">
+      </header>
+
+      <main id="rows" class="v-scroll"></main>
+      <div id="message" class="hidden"></div>
+    </div>
+
+    <!-- DETALHES -->
+    <div id="details" class="screen layer hidden">
+      <div id="details-bg"></div>
+      <div id="details-shade"></div>
+      <div id="details-info">
+        <h1 id="details-title"></h1>
+        <p id="details-meta"></p>
+        <p id="details-overview"></p>
+        <div id="details-actions"></div>
+      </div>
+      <div id="details-children">
+        <h2 id="details-children-title" class="row-title"></h2>
+        <div id="details-children-track" class="row-track"></div>
+      </div>
+    </div>
+
+    <!-- PLAYER -->
+    <div id="player" class="screen hidden">
+      <video id="video" preload="auto"></video>
+      <div id="yt-holder"></div>
+      <div id="player-spinner" class="hidden"></div>
+      <div id="player-ui">
+        <div id="player-title"></div>
+        <div id="player-bar"><div id="player-progress"></div></div>
+        <div id="player-time">00:00 / 00:00</div>
+        <div id="player-hint">OK: pausar &nbsp;•&nbsp; ◀ ▶: 10s &nbsp;•&nbsp; Voltar: sair</div>
+      </div>
+    </div>
+
+    <div id="toast" class="hidden"></div>
+  </div>
+
+  <!-- 1) Configuração (chaves, fontes ativas) -->
+  <script src="js/config.js"></script>
+  <!-- 2) Utilitários -->
+  <script src="js/http.js"></script>
+  <!-- 3) Registro de fontes + fontes. NOVA FONTE? adicione o <script> dela aqui (veja FONTES.md) -->
+  <script src="js/providers/registry.js"></script>
+  <script src="js/providers/demo.js"></script>
+  <script src="js/providers/tmdb.js"></script>
+  <script src="js/providers/jellyfin.js"></script>
+  <script src="js/providers/m3u.js"></script>
+  <!-- 4) Interface -->
+  <script src="js/spatial.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
