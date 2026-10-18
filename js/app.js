@@ -83,6 +83,7 @@
     $('rows').innerHTML = '<div class="loading">Carregando ' + p.name + '...</div>';
     p.getRows().then(function (rows) {
       if (state.provider !== p) return;
+      if (!rows.length && p.emptyHint) { showMessage(p.emptyHint); Nav.focusFirst($('tabs')); return; }
       renderRows(rows);
     }, function (err) {
       showMessage('Erro ao carregar "' + p.name + '": ' + err.message);
@@ -284,7 +285,7 @@
   }
 
   function boot() {
-    goHosted().then(loadRemoteConfig).then(function () { Settings.apply(); init(); });
+    goHosted().then(loadRemoteConfig).then(function () { M3U.registerFromConfig(); Settings.apply(); init(); });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

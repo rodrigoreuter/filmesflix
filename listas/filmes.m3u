@@ -1,0 +1,14 @@
+#EXTM3U
+# Filmes livres: animações da Blender (Creative Commons) e clássicos em domínio público (Internet Archive).
+#EXTINF:-1 tvg-logo="listas/capas/big-buck-bunny.jpg" tvg-description="Um coelho gigante e gentil decide dar o troco em três roedores que vivem infernizando a floresta." group-title="Animação (Creative Commons)",Big Buck Bunny (2008)
+https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4
+#EXTINF:-1 tvg-logo="listas/capas/sintel.jpg" tvg-description="Uma jovem atravessa terras perigosas em busca do filhote de dragão que criou." group-title="Animação (Creative Commons)",Sintel (2010)
+https://archive.org/download/Sintel/sintel-2048-stereo_512kb.mp4
+#EXTINF:-1 tvg-logo="listas/capas/elephants-dream.jpg" tvg-description="Dois personagens exploram uma máquina surreal e infinita, cada um enxergando-a de um jeito." group-title="Animação (Creative Commons)",Elephants Dream (2006)
+https://archive.org/download/ElephantsDream/ed_1024_512kb.mp4
+#EXTINF:-1 tvg-logo="listas/capas/tears-of-steel.jpg" tvg-description="Em uma Amsterdã futurista, cientistas tentam salvar o mundo de robôs destrutivos." group-title="Animação (Creative Commons)",Tears of Steel (2012)
+https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8
+#EXTINF:-1 tvg-logo="listas/capas/noite-mortos-vivos.jpg" tvg-description="Um grupo se refugia numa casa de fazenda enquanto mortos voltam à vida. Clássico de terror de George A. Romero." group-title="Clássicos (domínio público)",A Noite dos Mortos-Vivos (1968)
+https://archive.org/download/Night.Of.The.Living.Dead_1080p/NightOfTheLivingDead_PS3.mp4
+#EXTINF:-1 tvg-logo="listas/capas/his-girl-friday.jpg" tvg-description="Editor de jornal tenta reconquistar a ex-esposa, sua melhor repórter, em meio a uma grande reportagem. Com Cary Grant." group-title="Clássicos (domínio público)",Jejum de Amor (His Girl Friday, 1940)
+https://archive.org/download/his_girl_friday/his_girl_friday.mp4

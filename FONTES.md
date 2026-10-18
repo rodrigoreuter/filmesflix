@@ -79,3 +79,22 @@ A fonte `m3u` (`js/providers/m3u.js`) lê listas `.m3u` e mostra uma fileira por
 - **Validar:** `npm run validar-listas` testa todos os canais das listas (`node tools/validar-listas.js arquivo.m3u` para um só). Com `--salvar`, grava `<nome>.online.m3u` só com os canais que estão no ar.
 
 Use apenas streams que você tem direito de assistir.
+
+## Abas próprias (Filmes, Séries, Esportes...)
+
+Cada aba do topo pode ler as suas próprias listas `.m3u`. Para criar uma, adicione um bloco em `config.json` > `providers` com `"type": "m3u"`:
+
+```json
+"novelas": {
+  "type": "m3u",
+  "enabled": true,
+  "name": "Novelas",
+  "live": false,
+  "lists": [ { "name": "Novelas", "url": "listas/novelas.m3u" } ]
+}
+```
+
+- `live: true` (padrão): canais ao vivo, cartão com logo, toca direto no clique.
+- `live: false`: filmes/episódios, cartão com pôster e tela de detalhes antes de tocar. Use `tvg-description="..."` na linha `#EXTINF` para a sinopse.
+- Em séries, use o nome da série como `group-title`: cada série vira uma fileira e cada item é um episódio.
+- Capas e logos: salve em `listas/capas/` ou `listas/logos/` e aponte o `tvg-logo` para lá.

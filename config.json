@@ -15,6 +15,37 @@
         { "name": "Canais abertos", "url": "listas/canais-legais.m3u" },
         { "name": "Minha lista", "url": "listas/minha-lista.m3u" }
       ]
+    },
+
+    "_abas": "Cada bloco com \"type\": \"m3u\" vira uma aba no topo. live: false = filmes/séries (pôster e tela de detalhes).",
+
+    "filmes": {
+      "type": "m3u",
+      "enabled": true,
+      "name": "Filmes",
+      "live": false,
+      "lists": [
+        { "name": "Filmes livres", "url": "listas/filmes.m3u" }
+      ]
+    },
+
+    "series": {
+      "type": "m3u",
+      "enabled": true,
+      "name": "Séries",
+      "live": false,
+      "lists": [
+        { "name": "Séries", "url": "listas/series.m3u" }
+      ]
+    },
+
+    "esportes": {
+      "type": "m3u",
+      "enabled": true,
+      "name": "Esportes",
+      "lists": [
+        { "name": "Esportes", "url": "listas/esportes.m3u" }
+      ]
     }
   }
 }

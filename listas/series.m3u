@@ -1,0 +1,23 @@
+#EXTM3U
+# Séries: cada group-title é uma série (uma fileira por série); cada item é um episódio.
+# Superman (Max Fleischer, 1941-43): domínio público (Internet Archive).
+#EXTINF:-1 tvg-logo="listas/capas/superman-01.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 1 - The Mad Scientist
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-01-The_Mad_Scientist.mp4
+#EXTINF:-1 tvg-logo="listas/capas/superman-03.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 3 - Billion Dollar Limited
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-03-Billion_Dollar_Limited.mp4
+#EXTINF:-1 tvg-logo="listas/capas/superman-06.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 6 - The Magnetic Telescope
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-06-The_Magnetic_Telescope.mp4
+#EXTINF:-1 tvg-logo="listas/capas/superman-07.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 7 - Electric Earthquake
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-07-Electric_Earthquake.mp4
+#EXTINF:-1 tvg-logo="listas/capas/superman-08.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 8 - Volcano
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-08-Volcano.mp4
+#EXTINF:-1 tvg-logo="listas/capas/superman-09.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 9 - Terror on the Midway
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-09-Terror_on_the_Midway.mp4
+#EXTINF:-1 tvg-logo="listas/capas/superman-10.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 10 - Japoteurs
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-10-Japoteurs.mp4
+#EXTINF:-1 tvg-logo="listas/capas/superman-11.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 11 - Showdown
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-11-Showdown.mp4
+#EXTINF:-1 tvg-logo="listas/capas/superman-16.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 16 - The Underground World
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-16-The_Underground_World.mp4
+#EXTINF:-1 tvg-logo="listas/capas/superman-17.jpg" tvg-description="Desenho clássico de 1941-43 dos estúdios Fleischer." group-title="Superman (1941)",Ep. 17 - Secret Agent
+https://archive.org/download/Superman_CC0/superman_CC0/Superman-17-Secret_Agent.mp4

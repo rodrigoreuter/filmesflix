@@ -1,0 +1,20 @@
+#EXTM3U
+# Canais de esporte gratuitos (FAST: canais oficiais com anúncios). Logos em listas/logos/.
+#EXTINF:-1 tvg-logo="listas/logos/fifa-plus.png" group-title="Futebol",FIFA+ (Português)
+https://e3be9ac5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYnJfRklGQVBsdXNQb3J0dWd1ZXNlX0hMUw/playlist.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/red-bull-tv.png" group-title="Radicais e motor",Red Bull TV
+https://d03ae6b5c6724c24867e97a3dc04934a.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-1026-WORBBRPTFAST-WHALETVPLUS/1026/hls/master/playlist.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/fuel-tv.png" group-title="Radicais e motor",FUEL TV
+https://amg01074-fueltv-fueltvemeaen-rakuten-b6j62.amagi.tv/hls/amagi_hls_data_rakutenAA-fueltvemeaen/CDN/master.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/bein-xtra.png" group-title="Esporte geral",beIN SPORTS XTRA
+https://bein-xtra-bein.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/sportsgrid.png" group-title="Esporte geral",SportsGrid
+https://sportsgrid-tribal.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/stadium.png" group-title="Esporte geral",Stadium
+https://wurl120sports.global.transmit.live/hls/679a907dce42a042c23ace37/v1/stadium_gracenote/samsung_us/latest/main/hls/playlist.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/acc-dn.png" group-title="Esporte universitário (EUA)",ACC Digital Network
+https://raycom-accdn-firetv.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/pac12.png" group-title="Esporte universitário (EUA)",Pac-12 Insider
+https://pac12-firetv.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/world-poker-tour.png" group-title="Outros",World Poker Tour
+https://amg00477-samsungelectron-worldpokertour-samsunguk-81igb.amagi.tv/playlist/amg00477-samsungelectron-worldpokertour-samsunguk/playlist.m3u8
