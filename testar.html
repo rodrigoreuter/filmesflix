@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testar lista M3U</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #0b0b0f; color: #f2f2f2; font: 15px/1.5 "Segoe UI", Roboto, Arial, sans-serif; }
+    main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
+    h1 { margin: 0 0 4px; font-size: 26px; } h1 span { color: #e50914; }
+    p.sub { margin: 0 0 20px; color: #9a9aa6; }
+    textarea, input[type=text] { width: 100%; background: #16161d; color: #f2f2f2; border: 1px solid #33333d; border-radius: 8px; padding: 10px 12px; font: 13px/1.4 Consolas, monospace; }
+    textarea { height: 150px; resize: vertical; }
+    .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0 18px; }
+    button, label.btn { background: #2a2a34; color: #f2f2f2; border: 0; border-radius: 8px; padding: 9px 16px; font: inherit; font-weight: 600; cursor: pointer; }
+    button.primary { background: #e50914; }
+    button:disabled { opacity: .5; cursor: default; }
+    input[type=file] { display: none; }
+    #resumo { color: #9a9aa6; margin-left: auto; }
+    #player { display: none; margin-bottom: 18px; background: #000; border-radius: 8px; overflow: hidden; }
+    #player video { width: 100%; max-height: 60vh; display: block; }
+    #player .info { padding: 8px 12px; background: #16161d; display: flex; justify-content: space-between; gap: 8px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #22222a; vertical-align: middle; }
+    th { color: #9a9aa6; font-weight: 600; font-size: 13px; }
+    td.nome { word-break: break-word; } td.nome small { display: block; color: #7d7d89; word-break: break-all; }
+    img.logo { width: 48px; height: 32px; object-fit: contain; background: #1f1f29; border-radius: 4px; }
+    .st { font-weight: 700; white-space: nowrap; }
+    .ok { color: #46d369; } .fora { color: #ff6b6b; } .esperando { color: #9a9aa6; } .testando { color: #f5c518; }
+    .res { white-space: nowrap; font-weight: 600; }
+    .k4 { color: #f5c518; }
+    .aviso { background: #16161d; border-left: 4px solid #e50914; padding: 10px 14px; border-radius: 6px; color: #c9c9d3; font-size: 13px; margin-top: 22px; }
+    @media (max-width: 640px) { .col-grupo, .col-logo { display: none; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>FILMES<span>FLIX</span> · Testar lista M3U</h1>
+  <p class="sub">Cole o conteúdo de uma lista, o endereço de uma lista (.m3u) ou o link de um canal. O teste abre cada vídeo de verdade e mostra a resolução.</p>
+
+  <textarea id="entrada" placeholder="#EXTM3U&#10;#EXTINF:-1 tvg-logo=&quot;...&quot; group-title=&quot;Esportes&quot;,Meu canal&#10;https://exemplo.com/canal.m3u8&#10;&#10;ou só um endereço: https://exemplo.com/lista.m3u"></textarea>
+  <div class="bar">
+    <button class="primary" id="testar">Testar</button>
+    <label class="btn" for="arquivo">Abrir arquivo .m3u</label>
+    <input type="file" id="arquivo" accept=".m3u,.m3u8,.txt">
+    <button id="parar" disabled>Parar</button>
+    <button id="baixar" disabled>Baixar só os que funcionam</button>
+    <span id="resumo"></span>
+  </div>
+
+  <div id="player">
+    <video id="video" controls playsinline></video>
+    <div class="info"><span id="player-nome"></span><button id="fechar">Fechar</button></div>
+  </div>
+
+  <table>
+    <thead><tr><th class="col-logo"></th><th>Canal</th><th class="col-grupo">Fileira</th><th>Status</th><th>Resolução</th><th></th></tr></thead>
+    <tbody id="lista"></tbody>
+  </table>
+
+  <div class="aviso">
+    <b>Como ler o resultado:</b> "OK" quer dizer que o vídeo abriu neste navegador. "OK na TV (H.265)" é um canal em formato HEVC: o navegador do PC não toca, mas a TV LG toca. Alguns canais que falham aqui por bloqueio do navegador (CORS) funcionam na TV, que usa o player nativo; para tirar a dúvida, rode <code>npm run validar-listas</code> no PC.
+    Links com <code>token=</code> ou <code>expires=</code> podem parar de funcionar depois. Use só conteúdo que você tem direito de assistir.
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+<script>
+(function () {
+  var TIMEOUT = 15000, PARALELO = 3;
+  var itens = [], fila = [], rodando = 0, parado = false;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function attr(line, name) {
+    var m = line.match(new RegExp(name + '="([^"]*)"', 'i'));
+    return m ? m[1].trim() : '';
+  }
+
+  // Nome do canal = texto depois da vírgula que vem após os atributos (key="valor").
+  // Assim vírgulas no nome ou em tvg-description="..." não quebram o título.
+  function titleOf(line) {
+    var rest = line.replace(/^#EXTINF:\s*-?[\d.]+/i, '').replace(/\s*[\w-]+="[^"]*"/g, '');
+    var c = rest.indexOf(',');
+    return c !== -1 ? rest.slice(c + 1).trim() : '';
+  }
+
+  // Mesmo formato lido pelo app (js/providers/m3u.js).
+  function parse(text) {
+    var lines = text.split(/\r?\n/), out = [], cur = null, extras = [];
+    for (var i = 0; i < lines.length; i++) {
+      var raw = lines[i], line = raw.trim();
+      if (!line || /^#EXTM3U/i.test(line)) continue;
+      if (line.indexOf('#EXTINF') === 0) {
+        cur = { title: titleOf(line), group: attr(line, 'group-title'), logo: attr(line, 'tvg-logo'), linhas: [raw] };
+      } else if (line.charAt(0) === '#') {
+        if (cur && /^#EXT/i.test(line)) cur.linhas.push(raw);
+      } else if (/^https?:\/\//i.test(line)) {
+        cur = cur || { title: '', group: '', logo: '', linhas: [] };
+        cur.url = line; cur.linhas.push(line);
+        if (!cur.title) cur.title = line.split('?')[0].split('/').slice(-2).join('/');
+        out.push(cur); cur = null;
+      }
+    }
+    return out;
+  }
+
+  function carregarEntrada() {
+    var txt = $('entrada').value.trim();
+    if (!txt) return Promise.reject(new Error('Cole uma lista ou um endereço.'));
+    if (/^(https?:\/\/\S+|[\w\/.-]+\.m3u8?)$/i.test(txt)) {
+      // Um endereço só: pode ser uma lista .m3u ou um canal (.m3u8/.mp4).
+      return fetch(txt).then(function (r) { return r.text(); }).then(function (body) {
+        if (/#EXTINF/i.test(body)) return parse(body);
+        return [{ title: txt.split('?')[0].split('/').pop(), group: '', logo: '', url: txt, linhas: [txt] }];
+      }, function () {
+        return [{ title: txt.split('?')[0].split('/').pop(), group: '', logo: '', url: txt, linhas: [txt] }];
+      });
+    }
+    return Promise.resolve(parse(txt));
+  }
+
+  function linha(it, i) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td class="col-logo"></td><td class="nome"></td><td class="col-grupo"></td>' +
+      '<td class="st esperando">aguardando</td><td class="res">-</td><td><button>▶</button></td>';
+    if (it.logo) { var img = new Image(); img.className = 'logo'; img.src = it.logo; img.onerror = function () { img.remove(); }; tr.cells[0].appendChild(img); }
+    tr.cells[1].textContent = it.title;
+    var small = document.createElement('small'); small.textContent = it.url; tr.cells[1].appendChild(small);
+    tr.cells[2].textContent = it.group || '-';
+    tr.cells[5].firstChild.onclick = function () { assistir(it); };
+    it.tr = tr;
+    return tr;
+  }
+
+  function status(it, cls, txt, res) {
+    var td = it.tr.cells[3];
+    td.className = 'st ' + cls; td.textContent = txt;
+    if (res !== undefined) {
+      var h = res ? parseInt(res.split('x')[1], 10) : 0;
+      it.tr.cells[4].innerHTML = res ? res + ' <span class="' + (h >= 2000 ? 'k4' : '') + '">(' + rotulo(h) + ')</span>' : '-';
+    }
+  }
+
+  function rotulo(h) { return h >= 2000 ? '4K' : h >= 1000 ? '1080p' : h >= 700 ? '720p' : h >= 480 ? 'SD' : h + 'p'; }
+
+  // Abre o vídeo num <video> escondido; OK quando o navegador lê as dimensões.
+  function testar(it) {
+    return new Promise(function (resolve) {
+      var v = document.createElement('video'), hls = null, fim = false, hevc = '';
+      v.muted = true; v.preload = 'auto';
+      function acabar(ok, info) {
+        if (fim) return; fim = true;
+        // H.265 que este navegador não decodifica: a TV LG toca, então conta como OK.
+        if (!ok && hevc) { ok = true; info = hevc; it.soTV = true; }
+        clearTimeout(t);
+        if (hls) hls.destroy();
+        v.removeAttribute('src'); v.load();
+        resolve({ ok: ok, info: info });
+      }
+      var t = setTimeout(function () { acabar(false, 'tempo esgotado'); }, TIMEOUT);
+      v.addEventListener('loadedmetadata', function () {
+        if (!v.videoWidth && hevc) return acabar(false, ''); // só o áudio abriu: vídeo H.265 que o navegador não decodifica
+        var res = v.videoWidth ? v.videoWidth + 'x' + v.videoHeight : '';
+        // Em HLS, a maior qualidade oferecida pela lista (a TV escolhe conforme a internet).
+        if (hls && hls.levels && hls.levels.length) {
+          var max = hls.levels.reduce(function (a, l) { return l.height > a.height ? l : a; });
+          if (max.height) res = max.width + 'x' + max.height;
+        }
+        acabar(true, res);
+      });
+      v.addEventListener('error', function () { acabar(false, 'formato não suportado ou bloqueado'); });
+      var isHls = /\.m3u8(\?|$)/i.test(it.url) || /\/playlist|manifest/i.test(it.url);
+      // hls.js mesmo onde há HLS nativo: assim dá para ler todas as qualidades da lista.
+      if (isHls && window.Hls && Hls.isSupported()) {
+        hls = new Hls({ autoStartLoad: true, capLevelToPlayerSize: false });
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          var h = hls.levels.filter(function (l) { return /hvc1|hev1/i.test(l.videoCodec || (l.attrs && l.attrs.CODECS) || ''); });
+          if (h.length) {
+            var max = h.reduce(function (a, l) { return l.height > a.height ? l : a; });
+            hevc = max.width + 'x' + max.height;
+          }
+        });
+        hls.on(Hls.Events.ERROR, function (e, d) {
+          if (!d.fatal || fim) return;
+          var erro = d.type === 'networkError' ? 'fora do ar ou bloqueado (' + (d.response && d.response.code || d.details) + ')' : d.details;
+          // Antes de desistir, tenta o player nativo (é o que a TV usa).
+          if (v.canPlayType('application/vnd.apple.mpegurl')) {
+            hls.destroy(); hls = null;
+            v.addEventListener('error', function () { acabar(false, erro); });
+            v.src = it.url;
+          } else acabar(false, erro);
+        });
+        hls.loadSource(it.url); hls.attachMedia(v);
+      } else {
+        v.src = it.url;
+      }
+    });
+  }
+
+  function proximo() {
+    while (!parado && rodando < PARALELO && fila.length) {
+      (function (it) {
+        rodando++;
+        status(it, 'testando', 'testando...');
+        testar(it).then(function (r) {
+          rodando--;
+          it.ok = r.ok;
+          if (r.ok && it.soTV) status(it, 'testando', 'OK na TV (H.265)', r.info);
+          else if (r.ok) status(it, 'ok', 'OK', r.info); else status(it, 'fora', 'FORA · ' + r.info, '');
+          resumo(); proximo();
+        });
+      })(fila.shift());
+    }
+    if (!rodando && (!fila.length || parado)) { $('testar').disabled = false; $('parar').disabled = true; }
+  }
+
+  function resumo() {
+    var ok = itens.filter(function (i) { return i.ok === true; }).length;
+    var fora = itens.filter(function (i) { return i.ok === false; }).length;
+    $('resumo').textContent = itens.length + ' itens · ' + ok + ' OK · ' + fora + ' fora';
+    $('baixar').disabled = !ok;
+  }
+
+  function assistir(it) {
+    var v = $('video');
+    if (window._hlsPlayer) { window._hlsPlayer.destroy(); window._hlsPlayer = null; }
+    $('player').style.display = 'block';
+    $('player-nome').textContent = it.title;
+    if (/\.m3u8(\?|$)|\/playlist|manifest/i.test(it.url) && window.Hls && Hls.isSupported()) {
+      window._hlsPlayer = new Hls(); window._hlsPlayer.loadSource(it.url); window._hlsPlayer.attachMedia(v);
+    } else { v.src = it.url; }
+    v.play && v.play().catch(function () {});
+    window.scrollTo(0, 0);
+  }
+
+  $('fechar').onclick = function () {
+    var v = $('video'); v.pause();
+    if (window._hlsPlayer) { window._hlsPlayer.destroy(); window._hlsPlayer = null; }
+    v.removeAttribute('src'); v.load(); $('player').style.display = 'none';
+  };
+
+  $('testar').onclick = function () {
+    $('testar').disabled = true;
+    carregarEntrada().then(function (lista) {
+      itens = lista; parado = false;
+      var tb = $('lista'); tb.innerHTML = '';
+      if (!itens.length) { $('resumo').textContent = 'Nenhum canal encontrado no texto.'; $('testar').disabled = false; return; }
+      itens.forEach(function (it, i) { tb.appendChild(linha(it, i)); });
+      fila = itens.slice(); resumo(); $('parar').disabled = false; proximo();
+    }, function (e) { $('resumo').textContent = e.message; $('testar').disabled = false; });
+  };
+
+  $('parar').onclick = function () { parado = true; $('parar').disabled = true; };
+
+  $('arquivo').onchange = function () {
+    var f = this.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function () { $('entrada').value = r.result; $('testar').click(); };
+    r.readAsText(f);
+    this.value = '';
+  };
+
+  $('baixar').onclick = function () {
+    var corpo = ['#EXTM3U'].concat(itens.filter(function (i) { return i.ok; }).map(function (i) { return i.linhas.join('\n'); })).join('\n') + '\n';
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([corpo], { type: 'audio/x-mpegurl' }));
+    a.download = 'lista-online.m3u';
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+
+  // ?lista=listas/esportes.m3u já abre e testa uma lista do app.
+  var q = location.search.match(/[?&]lista=([^&]+)/);
+  if (q) { $('entrada').value = decodeURIComponent(q[1]); $('testar').click(); }
+})();
+</script>
+</body>
+</html>

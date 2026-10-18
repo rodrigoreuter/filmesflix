@@ -25,6 +25,14 @@ if (!arquivos.length) {
     .map(function (f) { return path.join(dir, f); });
 }
 
+// Nome do canal = texto depois da vírgula que vem após os atributos (key="valor").
+// Assim vírgulas no nome ou em tvg-description="..." não quebram o título.
+function titleOf(line) {
+  var rest = line.replace(/^#EXTINF:\s*-?[\d.]+/i, '').replace(/\s*[\w-]+="[^"]*"/g, '');
+  var c = rest.indexOf(',');
+  return c !== -1 ? rest.slice(c + 1).trim() : '';
+}
+
 // Separa a lista em blocos: linhas de cabeçalho (#EXTINF, #EXTVLCOPT...) + URL.
 function blocos(texto) {
   var linhas = texto.split(/\r?\n/), out = [], atual = [];
@@ -36,8 +44,7 @@ function blocos(texto) {
       return;
     }
     var info = atual.filter(function (x) { return /^#EXTINF/i.test(x.trim()); })[0] || '';
-    var c = info.lastIndexOf(',');
-    out.push({ linhas: atual.concat([l]), url: t, nome: c !== -1 ? info.slice(c + 1).trim() : t });
+    out.push({ linhas: atual.concat([l]), url: t, nome: (info && titleOf(info.trim())) || t });
     atual = [];
   });
   return out;
@@ -51,7 +58,17 @@ function testar(url) {
       if (!res.ok) { res.body && res.body.cancel(); return 'HTTP ' + res.status; }
       var tipo = res.headers.get('content-type') || '';
       if (/\.m3u8(\?|$)/i.test(url) || /mpegurl/i.test(tipo)) {
-        return res.text().then(function (t) { return /#EXTM3U/.test(t) ? null : 'não é uma playlist HLS'; });
+        return res.text().then(function (t) {
+          if (!/#EXTM3U/.test(t)) return 'não é uma playlist HLS';
+          // Lista "master": confere também uma das qualidades (muitos canais bloqueiam por região só nessa etapa).
+          if (/#EXT-X-STREAM-INF/.test(t)) {
+            var variante = t.split(/\r?\n/).filter(function (l) { return l && l.charAt(0) !== '#'; })[0];
+            if (variante) {
+              return testar(new URL(variante.trim(), res.url).href).then(function (e) { return e ? 'qualidades indisponíveis (' + e + '), talvez bloqueio por região' : null; });
+            }
+          }
+          return null;
+        });
       }
       res.body && res.body.cancel();
       return /video|audio|octet-stream|mp2t/i.test(tipo) || !tipo ? null : 'tipo inesperado: ' + tipo;

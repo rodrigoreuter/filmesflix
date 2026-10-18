@@ -19,6 +19,14 @@ var M3U = (function () {
     return m ? m[1].trim() : '';
   }
 
+  // Nome do canal = texto depois da vírgula que vem após os atributos (key="valor").
+  // Assim vírgulas no nome ou em tvg-description="..." não quebram o título.
+  function titleOf(line) {
+    var rest = line.replace(/^#EXTINF:\s*-?[\d.]+/i, '').replace(/\s*[\w-]+="[^"]*"/g, '');
+    var c = rest.indexOf(',');
+    return c !== -1 ? rest.slice(c + 1).trim() : '';
+  }
+
   // Converte o texto de um .m3u em itens { title, group, logo, description, url }.
   function parse(text, listName) {
     var lines = text.split(/\r?\n/), out = [], cur = null;
@@ -26,9 +34,8 @@ var M3U = (function () {
       var line = lines[i].trim();
       if (!line) continue;
       if (line.indexOf('#EXTINF') === 0) {
-        var comma = line.lastIndexOf(',');
         cur = {
-          title: comma !== -1 ? line.slice(comma + 1).trim() : '',
+          title: titleOf(line),
           group: attr(line, 'group-title'),
           logo: attr(line, 'tvg-logo'),
           description: attr(line, 'tvg-description')
@@ -156,5 +163,5 @@ var M3U = (function () {
   // A aba padrão "TV ao vivo".
   Fontes.register(create('m3u', 'TV ao vivo'));
 
-  return { create: create, parse: parse, registerFromConfig: registerFromConfig };
+  return { create: create, parse: parse, titleOf: titleOf, registerFromConfig: registerFromConfig };
 })();

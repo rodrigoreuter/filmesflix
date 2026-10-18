@@ -99,3 +99,9 @@ O app fica publicado em `https://rodrigoreuter.github.io/filmesflix/`. O app ins
 - **Código novo** (fontes, telas): faça `git push`; a TV também recebe sozinha.
 - Só precisa reinstalar na TV se mudar `appinfo.json`, ícones ou o próprio `hostedUrl`.
 - Atenção: o repositório é público. Não coloque chaves privadas em `config.json`.
+
+## Testar listas pelo navegador
+
+Abra **https://rodrigoreuter.github.io/filmesflix/testar.html**, cole uma lista (ou o endereço dela, ou um link de canal) e clique em **Testar**. A página abre cada vídeo, mostra a resolução (720p/1080p/4K) e baixa um `.m3u` só com os que funcionam.
+
+Atalho para testar uma lista do app: `testar.html?lista=listas/esportes.m3u`.
