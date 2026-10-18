@@ -104,7 +104,8 @@
     }
     c.appendChild(el('div', 'card-label', item.title));
     c._item = item;
-    c.onclick = function () { openDetails(item); };
+    // playDirect: abre o vídeo no clique (canais ao vivo), sem passar pela tela de detalhes.
+    c.onclick = function () { item.playDirect ? play_(item) : openDetails(item); };
     return c;
   }
 

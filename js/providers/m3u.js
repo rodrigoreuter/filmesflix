@@ -75,6 +75,7 @@
       meta: 'Ao vivo • ' + ch.group,
       overview: 'Lista: ' + listName,
       playable: true,
+      playDirect: true,
       playLabel: 'Assistir ao vivo',
       raw: ch
     };

@@ -29,6 +29,7 @@
  *    overview (sinopse), meta (ex.: "2024 • 2h 10min"),
  *    playable: true/false,     // mostra o botão Assistir
  *    playLabel: 'Assistir',    // texto do botão (ex.: 'Trailer')
+ *    playDirect: true/false,   // true = toca já no clique, sem tela de detalhes
  *    hasChildren: true/false,  // abre lista de episódios via getChildren
  *    childrenLabel: 'Episódios',
  *    raw: {...}                // dados originais, para a própria fonte usar
