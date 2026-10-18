@@ -66,7 +66,7 @@
 
   function selectProvider(id) {
     var p = Fontes.get(id);
-    if (!p) { showMessage('Nenhuma fonte ativa. Ative ao menos uma em js/config.js.'); return; }
+    if (!p) { state.provider = null; renderTabs(); showMessage('Nenhuma fonte ligada. Abra as Configurações (engrenagem no topo).'); Nav.focus($('settings-btn')); return; }
     state.provider = p;
     state.searching = false;
     $('search-input').value = '';
@@ -207,6 +207,7 @@
 
   /* ---------- Tecla Voltar ---------- */
   function back() {
+    if (Settings.isOpen()) { Settings.close(); return; }
     if (!Nav.hasClass($('details'), 'hidden')) { closeDetails(); return; }
     if (state.searching) { selectProvider(state.provider.id); return; }
     var now = Date.now();
@@ -224,6 +225,13 @@
     Nav.onFocus(function (node) {
       if (node._item && Nav.hasClass($('details'), 'hidden')) setHero(node._item);
     });
+
+    $('settings-btn').onclick = function () {
+      Settings.open(function () {
+        var cur = state.provider && Fontes.get(state.provider.id);
+        selectProvider(cur && cur.id === state.provider.id ? cur.id : CONFIG.defaultProvider);
+      });
+    };
 
     $('search-input').addEventListener('keydown', function (e) {
       if (e.keyCode === KEYS.ENTER) { doSearch(this.value); e.preventDefault(); }
@@ -275,7 +283,7 @@
   }
 
   function boot() {
-    goHosted().then(loadRemoteConfig).then(init);
+    goHosted().then(loadRemoteConfig).then(function () { Settings.apply(); init(); });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

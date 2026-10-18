@@ -92,9 +92,11 @@
   Fontes.register({
     id: ID,
     get name() { return cfg().name || 'TV ao vivo'; },
-    setupHint: 'Cadastre ao menos uma lista em js/config.js (providers.m3u.lists).',
+    setupHint: 'Nenhuma lista de canais ligada. Abra as Configurações (engrenagem no topo) para ligar ou adicionar uma.',
 
     isConfigured: function () { return lists().length > 0; },
+
+    reset: function () { cache = null; },
 
     getRows: function () {
       return load().then(function (data) {

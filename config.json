@@ -4,8 +4,8 @@
   "defaultProvider": "m3u",
 
   "providers": {
-    "demo": { "enabled": true },
-    "tmdb": { "enabled": true },
+    "demo": { "enabled": false },
+    "tmdb": { "enabled": false },
     "jellyfin": { "enabled": false },
 
     "m3u": {

@@ -25,6 +25,7 @@
         <div class="logo">FILMES<span>FLIX</span></div>
         <nav id="tabs"></nav>
         <input id="search-input" class="focusable" type="text" placeholder="Buscar...">
+        <button id="settings-btn" class="tab focusable" title="Configurações">&#9881;</button>
       </header>
 
       <main id="rows" class="v-scroll"></main>
@@ -45,6 +46,13 @@
         <h2 id="details-children-title" class="row-title"></h2>
         <div id="details-children-track" class="row-track"></div>
       </div>
+    </div>
+
+    <!-- CONFIGURAÇÕES -->
+    <div id="settings" class="screen layer hidden">
+      <h1 id="settings-title">Configurações</h1>
+      <p id="settings-note">Vale para este aparelho. Para todos os aparelhos, edite config.json no GitHub.</p>
+      <div id="settings-body" class="v-scroll"></div>
     </div>
 
     <!-- PLAYER -->
@@ -75,6 +83,7 @@
   <script src="js/providers/m3u.js"></script>
   <!-- 4) Interface -->
   <script src="js/spatial.js"></script>
+  <script src="js/settings.js"></script>
   <script src="js/player.js"></script>
   <script src="js/app.js"></script>
 </body>

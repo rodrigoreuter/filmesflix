@@ -63,5 +63,7 @@ var Fontes = (function () {
     return enabled[0] || null;
   }
 
-  return { register: register, all: all, get: get, config: config };
+  function registered() { return list.slice(); }
+
+  return { register: register, all: all, get: get, config: config, registered: registered };
 })();

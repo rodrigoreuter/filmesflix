@@ -26,6 +26,32 @@ body { font-family: "LG Smart UI", "Segoe UI", Roboto, Arial, sans-serif; }
   border: 0.15rem solid #44444f; background: rgba(0,0,0,0.6); color: #fff; outline: none;
 }
 #search-input.focused { border-color: #f2f2f2; background: #1c1c24; }
+#settings-btn { font-size: 2rem; line-height: 1; padding: 0.4rem 0.9rem; margin: 0 0 0 1rem; }
+
+/* ---------- Configurações ---------- */
+#settings { background: #0b0b0f; z-index: 15; padding: 4rem 0 0; }
+#settings-title { font-size: 3rem; padding: 0 9rem; }
+#settings-note { font-size: 1.2rem; color: #8d8d99; padding: 0.4rem 9rem 0; }
+#settings-body { position: absolute; top: 10rem; left: 0; right: 0; bottom: 0; overflow: hidden; padding: 0 9rem 4rem; }
+.settings-section { font-size: 1.7rem; margin: 2rem 0 0.3rem; }
+.settings-hint { font-size: 1.15rem; color: #8d8d99; margin-bottom: 0.8rem; }
+.setting-line { display: flex; align-items: center; }
+.setting {
+  display: flex; align-items: center; width: 56rem; margin: 0 0 0.6rem; padding: 1rem 1.6rem;
+  font: inherit; font-size: 1.4rem; text-align: left; color: #f2f2f2;
+  background: #1c1c24; border: 0; border-radius: 0.5rem; outline: none;
+}
+.setting-label { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.setting-value { font-weight: 700; margin-left: 2rem; color: #b9b9c3; }
+.setting.on .setting-value { color: #46d369; }
+.setting.small { width: auto; margin-left: 1rem; }
+.setting.focused { background: #f2f2f2; color: #0b0b0f; }
+.setting.focused .setting-value { color: #0b0b0f; }
+.setting-input {
+  width: 56rem; margin: 0 0 0.6rem; padding: 1rem 1.6rem; font: inherit; font-size: 1.3rem;
+  color: #fff; background: #16161d; border: 0.15rem solid #44444f; border-radius: 0.5rem; outline: none;
+}
+.setting-input.focused { border-color: #f2f2f2; }
 
 /* ---------- Destaque (hero) ---------- */
 #hero { position: absolute; top: 0; left: 0; right: 0; height: 62%; }
