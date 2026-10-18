@@ -18,3 +18,7 @@ https://raycom-accdn-firetv.amagi.tv/playlist.m3u8
 https://pac12-firetv.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-logo="listas/logos/world-poker-tour.png" group-title="Outros",World Poker Tour
 https://amg00477-samsungelectron-worldpokertour-samsunguk-81igb.amagi.tv/playlist/amg00477-samsungelectron-worldpokertour-samsunguk/playlist.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/world-poker-tour.png" group-title="Outros",Combate
+http://143.14.134.107/167/index.m3u8
+#EXTINF:-1 tvg-logo="listas/logos/world-poker-tour.png" group-title="Outros",Combate
+https://stream.ads.ottera.tv/playlist.m3u8
